@@ -4,13 +4,10 @@
 	import { Mail16, Key16 } from 'svelte-octicons';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, getDoc, writeBatch } from 'firebase/firestore';
-	import { redirectIfLoggedIn } from '$lib/user'
+	import { redirectIfLoggedIn } from '$lib/user';
 	import { verifyFormFields } from '$lib/utils';
-	
+
 	redirectIfLoggedIn();
-	
-	// Checks if any fields are none.
-	
 
 	// Gets the data from form, checks it and creates the user
 	async function register(event: Event) {
@@ -18,19 +15,20 @@
 
 		let userCredentials;
 		try {
-			userCredentials = verifyFormFields(formData);
+			let verifiedCredentials = verifyFormFields(formData);
+			userCredentials.user_name = verifiedCredentials.get('first_name');
 		} catch (error) {
 			alert(error);
 			return;
 		}
 		console.log(userCredentials);
 
-		if (3 <= userCredentials["user_name"] && userCredentials["user_name"].length <= 15) {
+		if (3 <= userCredentials['user_name'] && userCredentials['user_name'].length <= 15) {
 			alert('Username must be between 3 and 15 characters in length');
 			return;
 		}
 
-		const ref = doc(firestore, `usernames/${userCredentials["user_name"]}`);
+		const ref = doc(firestore, `usernames/${userCredentials['user_name']}`);
 		const result = await getDoc(ref);
 
 		if (result.exists()) {
@@ -41,8 +39,8 @@
 		try {
 			await createUserWithEmailAndPassword(
 				auth,
-				userCredentials["email"],
-				userCredentials["password"]
+				userCredentials['email'],
+				userCredentials['password']
 			);
 		} catch (error) {
 			switch (error) {
@@ -65,16 +63,16 @@
 			return;
 		}
 		const user = auth.currentUser;
-		if (user == null) throw "User not logged in"
+		if (user == null) throw 'User not logged in';
 		const userDoc = doc(firestore, `users/${user.uid}`);
-		const usernameDoc = doc(firestore, `usernames/${userCredentials["user_name"]}`);
+		const usernameDoc = doc(firestore, `usernames/${userCredentials['user_name']}`);
 
 		const batch = writeBatch(firestore);
 		batch.set(userDoc, {
-			username: userCredentials["user_name"],
-			firstName: userCredentials["first_name"],
-			lastName: userCredentials["last_name"],
-			email: userCredentials["email"]
+			username: userCredentials['user_name'],
+			firstName: userCredentials['first_name'],
+			lastName: userCredentials['last_name'],
+			email: userCredentials['email']
 		});
 		batch.set(usernameDoc, { uid: user.uid });
 

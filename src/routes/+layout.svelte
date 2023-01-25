@@ -1,9 +1,6 @@
 <script>
-	// @ts-nocheck
-
 	import '../app.scss';
-	import { User, logOut } from '$lib/user';
-	import Page from './login/+page.svelte';
+	import { logOut } from '$lib/user';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { firestore, auth } from '$lib/firebase';
 	import { doc, getDoc } from 'firebase/firestore';

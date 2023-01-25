@@ -1,9 +1,8 @@
 <script lang="ts">
-	import {Post} from '$lib/post';
-	import {auth, firestore} from '$lib/firebase';
+	import { Post } from '$lib/post';
+	import { auth, firestore } from '$lib/firebase';
 	import { Timestamp, doc } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
-
 
 	export let title = '';
 	export let thumbnail_url = '';
@@ -13,10 +12,10 @@
 	const user = auth.currentUser;
 
 	if (user == null) {
-		alert("User is not logged in");
+		alert('User is not logged in');
 		goto('/login');
-		throw Error("Failed to redirect");
-	};
+		throw Error('Failed to redirect');
+	}
 	const userDoc = doc(firestore, `users/${user.uid}`);
 
 	let formFields: Post = new Post({
@@ -28,9 +27,9 @@
 		author: userDoc
 	});
 
-	export const form: any = {
+	export const form: { getFields: () => Post } = {
 		getFields: (): Post => {
-			formFields.check()
+			formFields.check();
 			return formFields;
 		}
 	};

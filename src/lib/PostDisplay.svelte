@@ -19,23 +19,22 @@
 		}
 	}
 
-	async function getAuthor() { 
-        try {
-            let docSnap = await getDoc(post.author);
-            if (docSnap.exists()) {
-                postAuthor = new User(docSnap.data());
-            }
-        }
-        catch (e) {
-            console.log(e);
-        }
+	async function getAuthor() {
+		try {
+			let docSnap = await getDoc(post.author);
+			if (docSnap.exists()) {
+				postAuthor = new User(docSnap.data());
+			}
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	getUser();
 	getAuthor();
 
 	export let post: Post;
-    export let post_id: string;
+	export let post_id: string;
 
 	if (post == null) {
 		throw Error('Post was expected');

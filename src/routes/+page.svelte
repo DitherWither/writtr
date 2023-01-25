@@ -1,15 +1,8 @@
 <script lang="ts">
 	import PostDisplay from '$lib/PostDisplay.svelte';
 	import { Post } from '$lib/post';
-	import {
-		collection,
-		getDocs,
-		limit,
-		orderBy,
-		query,
-		QuerySnapshot,
-		type DocumentData
-	} from 'firebase/firestore';
+	import { collection, getDocs, limit, orderBy, query, QuerySnapshot } from 'firebase/firestore';
+	import type DocumentData from 'firebase/firestore';
 	import { firestore } from '$lib/firebase';
 
 	let posts: { post: Post; post_id: string }[] = [];
@@ -20,7 +13,7 @@
 		querySnap.forEach((doc) => {
 			let docData = doc.data();
 			console.log(docData);
-			posts.push({ post: new Post(docData as any), post_id: doc.id });
+			posts.push({ post: new Post(docData), post_id: doc.id });
 			posts = posts;
 		});
 	});

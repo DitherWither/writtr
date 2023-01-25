@@ -1,14 +1,11 @@
 <script>
-// @ts-nocheck
-
-	import { prevent_default } from 'svelte/internal';
 	import { redirectIfLoggedIn } from '$lib/user';
 	import { verifyFormFields } from '$lib/utils';
-    import { auth } from "$lib/firebase"
+	import { auth } from '$lib/firebase';
 	import { Mail16, Key16 } from 'svelte-octicons';
-    import { signInWithEmailAndPassword } from 'firebase/auth'
+	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
-    
+
 	redirectIfLoggedIn();
 	function login(event) {
 		let formData = new FormData(event.target);
@@ -20,9 +17,8 @@
 			alert(error);
 			return;
 		}
-        signInWithEmailAndPassword(auth, userCredentials['email'], userCredentials['password'])
-        goto('/')
-        
+		signInWithEmailAndPassword(auth, userCredentials['email'], userCredentials['password']);
+		goto('/');
 	}
 </script>
 
@@ -32,16 +28,10 @@
 		<form on:submit|preventDefault={login}>
 			<div class="input-group mb-3">
 				<span class="input-group-text"><Mail16 /></span>
-				<input
-					name="email"
-					id="email"
-					class="form-control"
-					placeholder="Email"
-					required
-				/>
+				<input name="email" id="email" class="form-control" placeholder="Email" required />
 			</div>
 			<div class="input-group mb-3">
-				<span class="input-group-text"><Key16/></span>
+				<span class="input-group-text"><Key16 /></span>
 				<input
 					type="password"
 					name="password"

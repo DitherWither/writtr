@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function verifyFormFields(formData: FormData): any {
-    let checkedFields: any = {};
+	const checkedFields: any = {};
 
-    for (let [key, value] of formData)
-        if (!value) throw new Error('Field ' + key + ' is required');
-        else checkedFields[key] = value.toString();
+	for (const [key, value] of formData)
+		if (!value) throw new Error('Field ' + key + ' is required');
+		else checkedFields.set(key, value.toString());
 
-    return checkedFields;
+	return checkedFields;
 }
