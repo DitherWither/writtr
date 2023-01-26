@@ -10,31 +10,23 @@
 	redirectIfLoggedIn();
 
 	// Gets the data from form, checks it and creates the user
-	async function register(event: Event) {
-		let formData = new FormData(event.target as HTMLFormElement);
 
-		let userCredentials: {
-			user_name: string;
-			email: string;
-			password: string;
-			first_name: string;
-			last_name: string;
-		} = { user_name: '', email: '', password: '', first_name: '', last_name: '' };
-		try {
-			let verifiedCredentials = verifyFormFields(formData);
-			userCredentials.user_name = verifiedCredentials.get('first_name');
-		} catch (error) {
-			alert(error);
-			return;
-		}
+	let userCredentials: {
+		user_name: string;
+		email: string;
+		password: string;
+		first_name: string;
+		last_name: string;
+	} = { user_name: '', email: '', password: '', first_name: '', last_name: '' };
+	async function register() {
 		console.log(userCredentials);
 
-		if (3 <= userCredentials['user_name'].length && userCredentials['user_name'].length <= 15) {
+		if (userCredentials.user_name.length < 3 || userCredentials.user_name.length > 15) {
 			alert('Username must be between 3 and 15 characters in length');
 			return;
 		}
 
-		const ref = doc(firestore, `usernames/${userCredentials['user_name']}`);
+		const ref = doc(firestore, `usernames/${userCredentials.user_name}`);
 		const result = await getDoc(ref);
 
 		if (result.exists()) {
@@ -43,11 +35,7 @@
 		}
 
 		try {
-			await createUserWithEmailAndPassword(
-				auth,
-				userCredentials['email'],
-				userCredentials['password']
-			);
+			await createUserWithEmailAndPassword(auth, userCredentials.email, userCredentials.password);
 		} catch (error) {
 			switch (error) {
 				case AuthErrorCodes.EMAIL_EXISTS:
@@ -71,14 +59,14 @@
 		const user = auth.currentUser;
 		if (user == null) throw 'User not logged in';
 		const userDoc = doc(firestore, `users/${user.uid}`);
-		const usernameDoc = doc(firestore, `usernames/${userCredentials['user_name']}`);
+		const usernameDoc = doc(firestore, `usernames/${userCredentials.user_name}`);
 
 		const batch = writeBatch(firestore);
 		batch.set(userDoc, {
-			username: userCredentials['user_name'],
-			firstName: userCredentials['first_name'],
-			lastName: userCredentials['last_name'],
-			email: userCredentials['email']
+			username: userCredentials.user_name,
+			firstName: userCredentials.first_name,
+			lastName: userCredentials.last_name,
+			email: userCredentials.email
 		});
 		batch.set(usernameDoc, { uid: user.uid });
 
@@ -98,13 +86,21 @@
 						id="user_name"
 						class="form-control"
 						placeholder="Username"
+						bind:value={userCredentials.user_name}
 						required
 					/>
 				</div>
 
 				<div class="input-group mb-3">
 					<span class="input-group-text"><Mail16 /></span>
-					<input name="email" id="email" class="form-control" placeholder="Email" required />
+					<input
+						name="email"
+						id="email"
+						class="form-control"
+						placeholder="Email"
+						bind:value={userCredentials.email}
+						required
+					/>
 				</div>
 
 				<div class="input-group">
@@ -115,6 +111,7 @@
 						id="password"
 						class="form-control"
 						placeholder="Password"
+						bind:value={userCredentials.password}
 						required
 					/>
 				</div>
@@ -127,6 +124,7 @@
 							id="first_name"
 							placeholder="First Name"
 							class="form-control"
+							bind:value={userCredentials.first_name}
 							required
 						/>
 						<input
@@ -134,6 +132,7 @@
 							id="last_name"
 							placeholder="Last Name"
 							class="form-control"
+							bind:value={userCredentials.last_name}
 							required
 						/>
 					</div>
