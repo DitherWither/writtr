@@ -5,7 +5,6 @@
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, getDoc, writeBatch } from 'firebase/firestore';
 	import { redirectIfLoggedIn } from '$lib/user';
-	import { verifyFormFields } from '$lib/utils';
 
 	redirectIfLoggedIn();
 
