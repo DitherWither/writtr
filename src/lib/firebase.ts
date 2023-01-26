@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, type Auth, onAuthStateChanged, type User as firebaseUser} from 'firebase/auth';
 import { Firestore, getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -28,3 +28,15 @@ onAuthStateChanged(auth, () => {
 		console.log('Auth is ready');
 	}
 });
+
+export const getCurrentUser = (): Promise<firebaseUser | null> => {
+    return new Promise((resolve, reject) => {
+        if (auth.currentUser) {
+            resolve(auth.currentUser);
+        }
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            unsubscribe();
+            resolve(user);
+        }, reject);
+    });
+}

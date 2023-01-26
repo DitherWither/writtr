@@ -4,6 +4,8 @@ import { auth, firestore } from '$lib/firebase';
 import { Post } from '$lib/post';
 import { User } from '$lib/user';
 
+
+// TODO: Replace object with the actual types
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }): Promise<object> {
 	const docRef = doc(firestore, 'posts', params.post_id);
