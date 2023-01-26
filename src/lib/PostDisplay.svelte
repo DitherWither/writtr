@@ -4,6 +4,9 @@
 	import { User } from './user';
 	import { doc, getDoc } from 'firebase/firestore';
 
+	export let post: Post;
+	export let post_id: string;
+
 	let currentUser: User = new User({});
 	let postAuthor: User = new User({});
 	$: isAuthor = postAuthor.username == currentUser.username;
@@ -32,9 +35,6 @@
 
 	getUser();
 	getAuthor();
-
-	export let post: Post;
-	export let post_id: string;
 
 	if (post == null) {
 		throw Error('Post was expected');

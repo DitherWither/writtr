@@ -1,23 +1,18 @@
-<script>
+<script lang="ts">
 	import { redirectIfLoggedIn } from '$lib/user';
-	import { verifyFormFields } from '$lib/utils';
 	import { auth } from '$lib/firebase';
 	import { Mail16, Key16 } from 'svelte-octicons';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
 
-	redirectIfLoggedIn();
-	function login(event) {
-		let formData = new FormData(event.target);
+	let userCredentials: { email: string; password: string } = {
+		email: '',
+		password: ''
+	};
 
-		let userCredentials;
-		try {
-			userCredentials = verifyFormFields(formData);
-		} catch (error) {
-			alert(error);
-			return;
-		}
-		signInWithEmailAndPassword(auth, userCredentials['email'], userCredentials['password']);
+	redirectIfLoggedIn();
+	function login() {
+		signInWithEmailAndPassword(auth, userCredentials.email, userCredentials.password);
 		goto('/');
 	}
 </script>
@@ -28,7 +23,14 @@
 		<form on:submit|preventDefault={login}>
 			<div class="input-group mb-3">
 				<span class="input-group-text"><Mail16 /></span>
-				<input name="email" id="email" class="form-control" placeholder="Email" required />
+				<input
+					name="email"
+					id="email"
+					class="form-control"
+					placeholder="Email"
+					bind:value={userCredentials.email}
+					required
+				/>
 			</div>
 			<div class="input-group mb-3">
 				<span class="input-group-text"><Key16 /></span>
@@ -39,6 +41,7 @@
 					class="form-control"
 					placeholder="Password"
 					required
+					bind:value={userCredentials.password}
 				/>
 			</div>
 			<div class="text-center">

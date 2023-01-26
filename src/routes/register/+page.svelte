@@ -13,7 +13,13 @@
 	async function register(event: Event) {
 		let formData = new FormData(event.target as HTMLFormElement);
 
-		let userCredentials;
+		let userCredentials: {
+			user_name: string;
+			email: string;
+			password: string;
+			first_name: string;
+			last_name: string;
+		} = { user_name: '', email: '', password: '', first_name: '', last_name: '' };
 		try {
 			let verifiedCredentials = verifyFormFields(formData);
 			userCredentials.user_name = verifiedCredentials.get('first_name');
@@ -23,7 +29,7 @@
 		}
 		console.log(userCredentials);
 
-		if (3 <= userCredentials['user_name'] && userCredentials['user_name'].length <= 15) {
+		if (3 <= userCredentials['user_name'].length && userCredentials['user_name'].length <= 15) {
 			alert('Username must be between 3 and 15 characters in length');
 			return;
 		}

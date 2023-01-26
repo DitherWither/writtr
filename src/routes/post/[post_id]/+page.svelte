@@ -17,15 +17,19 @@
 
 <h3 class="text-muted">
 	by
-	{#if data.currentUser.username == data.postAuthor.username}
-		Me
+	{#if data.currentUser != null}
+		{#if data.currentUser.username == data.postAuthor.username}
+			Me
+		{:else}
+			{data.postAuthor.firstName} {data.postAuthor.lastName}
+		{/if}
+
+		(<a href="/user/{data.postAuthor.username}">@{data.postAuthor.username}</a>)
+		{#if data.currentUser.username == data.postAuthor.username}
+			<a href="/update/{data.post_id}">Edit Post</a>
+		{/if}
 	{:else}
 		{data.postAuthor.firstName} {data.postAuthor.lastName}
-	{/if}
-
-	(<a href="/user/{data.postAuthor.username}">@{data.postAuthor.username}</a>)
-	{#if data.currentUser.username == data.postAuthor.username}
-		<a href="/update/{data.post_id}">Edit Post</a>
 	{/if}
 </h3>
 
