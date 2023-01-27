@@ -34,8 +34,8 @@
 				<img class="card-img-top" src={post.thumbnail_url} alt="Post Thumbnail" />
 			{/if}
 			<div class="card-body">
-				<h2 class="card-title">{post.title}</h2>
-				<h3 class="card-subtitle mb-2 text-muted">
+				<h2 class="card-title h5">{post.title}</h2>
+				<h3 class="card-subtitle mb-2 text-muted h6">
 					by
 					{#if isAuthor}
 						Me
