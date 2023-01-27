@@ -31,7 +31,8 @@
 						<a class="nav-link active font-weight-bold" href="/create">Create Post</a>
 					</li>
 					<li class="nav-item fs-5">
-						<button class="btn btn-link nav-link active" on:click={logOut}>Log out</button>
+						<!-- Using inline styles as a fix for odd styling -->
+						<button class="btn btn-link nav-link active" on:click={logOut} style="font-weight: normal !important;">Log out</button>
 					</li>
 				{:else}
 					<li class="nav-item fs-5"><a class="nav-link active" href="/register">Register</a></li>
