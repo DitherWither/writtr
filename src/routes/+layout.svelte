@@ -2,10 +2,12 @@
 	import type { User } from '$lib/user';
 	import { logOut } from '$lib/user';
 	import '../app.scss';
+	import 'bootstrap';
+
 	export let data: { currentUser: User | null; isSignedIn: boolean };
 </script>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+<nav class="navbar navbar-expand-lg bg-light fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand page-title fs-3" href="/">
 			<img src="/writtr.svg" width="40" height="40" alt="" />
