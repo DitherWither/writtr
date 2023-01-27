@@ -1,28 +1,17 @@
 <script lang="ts">
 	import type { Post } from '$lib/post';
-	import { auth, firestore } from '$lib/firebase';
 	import { User } from './user';
-	import { doc, getDoc } from 'firebase/firestore';
+	import { getDoc } from 'firebase/firestore';
+	import { onMount } from 'svelte';
 
 	export let post: Post;
 	export let post_id: string;
 
-	let currentUser: User = new User({});
-	let postAuthor: User = new User({});
+	export let currentUser: User;
+	export let postAuthor: User = new User({});
 	$: isAuthor = postAuthor.username == currentUser.username;
 
-	async function getUser() {
-		const user = auth.currentUser;
-		if (user != null) {
-			const userDoc = doc(firestore, `users/${user.uid}`);
-			const docSnap = await getDoc(userDoc);
-			if (docSnap.exists()) {
-				currentUser = new User(docSnap.data());
-			}
-		}
-	}
-
-	async function getAuthor() {
+	onMount(async () => {
 		try {
 			let docSnap = await getDoc(post.author);
 			if (docSnap.exists()) {
@@ -31,10 +20,7 @@
 		} catch (e) {
 			console.log(e);
 		}
-	}
-
-	getUser();
-	getAuthor();
+	});
 
 	if (post == null) {
 		throw Error('Post was expected');

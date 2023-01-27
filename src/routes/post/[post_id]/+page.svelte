@@ -4,7 +4,7 @@
 	import { marked } from 'marked';
 
 	/** @type {import('./$types').PageData} */
-	export let data: { post: Post; currentUser: User; postAuthor: User; post_id: string };
+	export let data: { post: Post; currentUser: User | null; postAuthor: User; post_id: string };
 </script>
 
 {#if data.post.thumbnail_url != ''}

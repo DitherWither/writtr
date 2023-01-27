@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, firestore } from '$lib/firebase';
+import { firestore } from '$lib/firebase';
 import { Post } from '$lib/post';
 import { User } from '$lib/user';
 
@@ -14,17 +14,6 @@ export async function load({ params }): Promise<object> {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const post = new Post(docSnap.data() as any);
 
-	let currentUser: User | null = null;
-	const user = auth.currentUser;
-
-	if (user != null) {
-		const userDoc = doc(firestore, `users/${user.uid}`);
-		const docSnap = await getDoc(userDoc);
-		if (docSnap.exists()) {
-			currentUser = new User(docSnap.data());
-		}
-	}
-
 	let postAuthor: User | null = null;
 
 	try {
@@ -36,5 +25,5 @@ export async function load({ params }): Promise<object> {
 		console.log(e);
 	}
 
-	return { post, currentUser, postAuthor, post_id: params.post_id };
+	return { post, postAuthor, post_id: params.post_id };
 }

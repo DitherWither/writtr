@@ -32,7 +32,11 @@
 					</li>
 					<li class="nav-item fs-5">
 						<!-- Using inline styles as a fix for odd styling -->
-						<button class="btn btn-link nav-link active" on:click={logOut} style="font-weight: normal !important;">Log out</button>
+						<button
+							class="btn btn-link nav-link active"
+							on:click={logOut}
+							style="font-weight: normal !important;">Log out</button
+						>
 					</li>
 				{:else}
 					<li class="nav-item fs-5"><a class="nav-link active" href="/register">Register</a></li>
