@@ -6,7 +6,9 @@ node_modules
 .env
 .env.*
 !.env.example
+public/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vercel
 .idea
+.firebase
