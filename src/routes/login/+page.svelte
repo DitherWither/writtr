@@ -19,7 +19,7 @@
 
 <svelte:head>
 	<title>Login - Writtr</title>
-	<meta name="description" content="Log into Writtr">
+	<meta name="description" content="Log into Writtr" />
 </svelte:head>
 
 <div class="position-absolute top-50 start-50 translate-middle card">

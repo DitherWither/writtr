@@ -75,7 +75,7 @@
 
 <svelte:head>
 	<title>Register - Writtr</title>
-	<meta name="description" content="Create a Writtr account">
+	<meta name="description" content="Create a Writtr account" />
 </svelte:head>
 
 <div class="position-absolute top-50 start-50 translate-middle card">

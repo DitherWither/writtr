@@ -3,7 +3,29 @@
 	import { logOut } from '$lib/user';
 	import '../app.scss';
 	import 'bootstrap';
+	import { onMount } from 'svelte';
+	import { pwaInfo } from 'virtual:pwa-info';
 
+	onMount(async () => {
+		if (pwaInfo) {
+			const { registerSW } = await import('virtual:pwa-register');
+			registerSW({
+				immediate: true,
+				onRegistered(r: ServiceWorkerRegistration) {
+					r &&
+						setInterval(() => {
+							console.log('Checking for sw update');
+							r.update();
+						}, 20000 /* 20s for testing purposes */);
+					console.log(`SW Registered: ${r}`);
+				},
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				onRegisterError(error: any) {
+					console.log('SW registration error', error);
+				}
+			});
+		}
+	});
 	export let data: { currentUser: User | null; isSignedIn: boolean };
 </script>
 

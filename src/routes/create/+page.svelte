@@ -23,7 +23,7 @@
 
 <svelte:head>
 	<title>Create Post - Writtr</title>
-	<meta name="description" content="Create a post on Writtr">
+	<meta name="description" content="Create a post on Writtr" />
 </svelte:head>
 
 <PostForm bind:form />

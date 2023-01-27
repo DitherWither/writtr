@@ -8,10 +8,12 @@
 </script>
 
 <svelte:head>
-    <title>Index - Writtr</title> 
-	<meta name="description" content="Writtr is a website where you can post articles easily. Create an account to post content.">
+	<title>Index - Writtr</title>
+	<meta
+		name="description"
+		content="Writtr is a website where you can post articles easily. Create an account to post content."
+	/>
 </svelte:head>
-
 
 <h1 class="mb-4 mt-2 display-1">Index</h1>
 <div class="container">
