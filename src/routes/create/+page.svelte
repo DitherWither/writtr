@@ -14,6 +14,7 @@
 		try {
 			fields = form.getFields();
 			await addDoc(collection(firestore, 'posts'), Object.assign({}, fields));
+			goto('/')
 			// console.log(fields);
 		} catch (error) {
 			alert(error);

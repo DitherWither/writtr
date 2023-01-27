@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"firebase": "^9.15.0",
+		"html-minifier": "^4.0.0",
 		"marked": "^4.2.12"
 	}
 }

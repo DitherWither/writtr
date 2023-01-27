@@ -8,9 +8,6 @@ const config: import('vite').UserConfig = {
 		SvelteKitPWA(
 			{
 				registerType: 'autoUpdate',
-				workbox: {
-					globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-				}
 			}
 		)
 	],
