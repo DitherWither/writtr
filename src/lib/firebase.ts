@@ -25,7 +25,6 @@ export let isAuthReady = false;
 onAuthStateChanged(auth, () => {
 	if (!isAuthReady) {
 		isAuthReady = true;
-		console.log('Auth is ready');
 	}
 });
 
