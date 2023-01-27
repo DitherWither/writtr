@@ -7,6 +7,20 @@
 	export let data: { post: Post; currentUser: User | null; postAuthor: User; post_id: string };
 </script>
 
+<style>
+	:global(img) {
+		max-width: 100%;
+		height: auto;
+	}
+</style>
+
+<svelte:head>
+	<title>{data.post.title} - Writtr</title>
+	<meta name="description" content="{data.post.description}">
+</svelte:head>
+
+
+
 {#if data.post.thumbnail_url != ''}
 	<img class="img-fluid" src={data.post.thumbnail_url} alt="Post Thumbnail" />
 {/if}
@@ -35,4 +49,4 @@
 
 <p class="lead">{data.post.description}</p>
 
-<p>{@html marked.parse(data.post.body)}</p>
+<p class="body-display">{@html marked.parse(data.post.body)}</p>

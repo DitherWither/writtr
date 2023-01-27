@@ -21,6 +21,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Create Post - Writtr</title>
+	<meta name="description" content="Create a post on Writtr">
+</svelte:head>
+
 <PostForm bind:form />
 <div class="text-center">
 	<button class="btn btn-primary" on:click={create}>Submit</button>

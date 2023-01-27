@@ -34,8 +34,8 @@
 				<img class="card-img-top" src={post.thumbnail_url} alt="Post Thumbnail" />
 			{/if}
 			<div class="card-body">
-				<h5 class="card-title">{post.title}</h5>
-				<h6 class="card-subtitle mb-2 text-muted">
+				<h2 class="card-title">{post.title}</h2>
+				<h3 class="card-subtitle mb-2 text-muted">
 					by
 					{#if isAuthor}
 						Me
@@ -43,7 +43,7 @@
 						{postAuthor.firstName} {postAuthor.lastName}
 					{/if}
 					(<a href="/user/{postAuthor.firstName}">@{postAuthor.lastName}</a>)
-				</h6>
+				</h3>
 
 				<p class="card-text">{post.description}</p>
 			</div>
