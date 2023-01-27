@@ -5,9 +5,14 @@ import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 const config: import('vite').UserConfig = {
 	plugins: [
 		sveltekit(),
-		SvelteKitPWA({
-			/* pwa options */
-		})
+		SvelteKitPWA(
+			{
+				registerType: 'autoUpdate',
+				workbox: {
+					globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+				}
+			}
+		)
 	],
 
 	css: {

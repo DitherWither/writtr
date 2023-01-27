@@ -11,8 +11,12 @@
 	};
 
 	redirectIfLoggedIn();
-	function login() {
-		signInWithEmailAndPassword(auth, userCredentials.email, userCredentials.password);
+	async function login() {
+		try {
+			await signInWithEmailAndPassword(auth, userCredentials.email, userCredentials.password);
+		} catch (e) {
+			alert(e);
+		}
 		goto('/');
 	}
 </script>

@@ -30,6 +30,6 @@ export function requireLogin() {
 	});
 }
 
-export function logOut() {
-	signOut(auth);
+export async function logOut() {
+	await signOut(auth);
 }
