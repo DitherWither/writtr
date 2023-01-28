@@ -78,7 +78,7 @@
 				bind:value={formFields.body}
 			/>
 		</div>
-		<div class="col-lg card" style="min-height: 20rem;">
+		<div class="col-lg card mb-3 mx-2" style="height: auto; min-height: 20rem;">
 			<p class="card-body">
 				{@html marked(formFields.body)}
 			</p>
