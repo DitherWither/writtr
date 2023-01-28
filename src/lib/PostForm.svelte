@@ -68,17 +68,17 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col">
+		<div class="col-lg">
 			<textarea
 				form="create-form"
 				name="body"
 				id="body"
 				class="form-control mb-3"
-				style="height: auto; min-height: 40rem"
+				style="height: auto; min-height: 20rem"
 				bind:value={formFields.body}
 			/>
 		</div>
-		<div class="col card">
+		<div class="col-lg card" style="min-height: 20rem;">
 			<p class="card-body">
 				{@html marked(formFields.body)}
 			</p>
