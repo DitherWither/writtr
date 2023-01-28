@@ -72,9 +72,8 @@
 		batch.set(usernameDoc, { uid: user.uid });
 
 		await batch.commit();
-		if (analytics) 
-			logEvent(analytics, "sign_up", {method: "email"})
-		
+		if (analytics) logEvent(analytics, 'sign_up', { method: 'email' });
+
 		await invalidateAll();
 		await goto('/');
 	}

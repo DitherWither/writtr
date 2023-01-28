@@ -4,9 +4,7 @@ import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth, onAuthStateChanged, type User as firebaseUser } from 'firebase/auth';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { init } from '$lib/vitals';
-import { getAnalytics, isSupported } from "firebase/analytics";
-
-
+import { getAnalytics, isSupported } from 'firebase/analytics';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -24,7 +22,7 @@ const firebaseConfig = {
 export const app: FirebaseApp = initializeApp(firebaseConfig);
 export const auth: Auth = getAuth(app);
 export const firestore: Firestore = getFirestore(app);
-export const analytics = await isSupported() ? getAnalytics(app) : null;
+export const analytics = (await isSupported()) ? getAnalytics(app) : null;
 
 if (browser) init();
 
