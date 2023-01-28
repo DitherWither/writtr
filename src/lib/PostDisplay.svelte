@@ -28,7 +28,7 @@
 </script>
 
 <div class="col col-sm-4">
-	<a href="post/{post_id}" class="text-reset text-decoration-none">
+	<a href="/post/{post_id}" class="text-reset text-decoration-none">
 		<div class="card" style="width: auto;">
 			{#if post.thumbnail_url != ''}
 				<img class="card-img-top" src={post.thumbnail_url} alt="Post Thumbnail" />
@@ -42,7 +42,7 @@
 					{:else}
 						{postAuthor.firstName} {postAuthor.lastName}
 					{/if}
-					(<a href="/user/{postAuthor.firstName}">@{postAuthor.lastName}</a>)
+					(<a href="/user/{postAuthor.username}">@{postAuthor.username}</a>)
 				</h3>
 
 				<p class="card-text">{post.description}</p>

@@ -57,3 +57,9 @@ export async function logOut() {
 	await signOut(auth);
 	await invalidateAll();
 }
+
+export async function getUidByUsername(username: string): Promise<string> {
+	const docSnap = await getDoc(doc(firestore, 'usernames', username));
+	if (!docSnap.exists()) return '';
+	return docSnap.data().uid;
+}
