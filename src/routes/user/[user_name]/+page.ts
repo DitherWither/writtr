@@ -11,7 +11,7 @@ export async function load({
 	const postsCollection = collection(firestore, 'posts');
 
 	const uid = await getUidByUsername(params.user_name);
-    
+
 	const userDoc = doc(firestore, 'users', uid);
 	const user = new User((await getDoc(userDoc)).data() as object);
 
