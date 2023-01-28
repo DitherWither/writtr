@@ -5,6 +5,7 @@
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, getDoc, writeBatch } from 'firebase/firestore';
 	import { redirectIfLoggedIn } from '$lib/user';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	redirectIfLoggedIn();
 
@@ -70,6 +71,8 @@
 		batch.set(usernameDoc, { uid: user.uid });
 
 		await batch.commit();
+		await invalidateAll();
+		await goto("/")
 	}
 </script>
 

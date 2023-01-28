@@ -3,7 +3,7 @@
 	import { auth } from '$lib/firebase';
 	import { Mail16, Key16 } from 'svelte-octicons';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	let userCredentials: { email: string; password: string } = {
 		email: '',
@@ -17,7 +17,8 @@
 		} catch (e) {
 			alert(e);
 		}
-		goto('/');
+		await invalidateAll()
+		await goto('/');
 	}
 </script>
 

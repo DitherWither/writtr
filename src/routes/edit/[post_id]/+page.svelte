@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { firestore } from '$lib/firebase';
 	import type { Post } from '$lib/post';
 	import PostForm from '$lib/PostForm.svelte';
@@ -13,11 +13,13 @@
 	async function update() {
 		const fields: Post = form.getFields();
 		await setDoc(doc(firestore, 'posts', data.post_id), Object.assign({}, fields));
-		goto('/');
+		await invalidateAll()
+		await goto('/');
 	}
 	async function deletePost() {
 		await deleteDoc(doc(firestore, 'posts', data.post_id));
-		goto('/');
+		await invalidateAll()
+		await goto('/');
 	}
 </script>
 

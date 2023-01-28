@@ -1,6 +1,6 @@
 import { auth, firestore, getCurrentUser } from '$lib/firebase';
 import { signOut } from 'firebase/auth';
-import { goto } from '$app/navigation';
+import { goto, invalidateAll } from '$app/navigation';
 import { getDoc, doc } from 'firebase/firestore';
 
 export class User {
@@ -55,4 +55,5 @@ export async function requireLogin() {
 
 export async function logOut() {
 	await signOut(auth);
+	await invalidateAll()
 }
