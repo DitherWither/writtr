@@ -27,7 +27,7 @@
 	}
 </script>
 
-<div class="col col-sm-4">
+<div class="col col-md">
 	<a href="/post/{post_id}" class="text-reset text-decoration-none">
 		<div class="card" style="width: auto;">
 			{#if post.thumbnail_url != ''}

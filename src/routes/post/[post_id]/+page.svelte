@@ -17,7 +17,7 @@
 </svelte:head>
 
 {#if data.post.thumbnail_url != ''}
-	<img class="img-fluid" src={data.post.thumbnail_url} alt="Post Thumbnail" />
+	<img class="img-fluid rounded" src={data.post.thumbnail_url} alt="Post Thumbnail" />
 {/if}
 
 <h1 class="mb-4 mt-2 display-1">
