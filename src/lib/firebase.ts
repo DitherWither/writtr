@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
+import { browser } from '$app/environment';
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth, onAuthStateChanged, type User as firebaseUser } from 'firebase/auth';
 import { Firestore, getFirestore } from 'firebase/firestore';
+import { init } from '$lib/vitals';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -19,6 +21,8 @@ const firebaseConfig = {
 export const app: FirebaseApp = initializeApp(firebaseConfig);
 export const auth: Auth = getAuth(app);
 export const firestore: Firestore = getFirestore(app);
+
+if (browser) init();
 
 export let isAuthReady = false;
 

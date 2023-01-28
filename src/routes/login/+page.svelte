@@ -17,7 +17,7 @@
 		} catch (e) {
 			alert(e);
 		}
-		await invalidateAll()
+		await invalidateAll();
 		await goto('/');
 	}
 </script>

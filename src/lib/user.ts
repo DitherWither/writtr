@@ -55,5 +55,5 @@ export async function requireLogin() {
 
 export async function logOut() {
 	await signOut(auth);
-	await invalidateAll()
+	await invalidateAll();
 }

@@ -72,7 +72,7 @@
 
 		await batch.commit();
 		await invalidateAll();
-		await goto("/")
+		await goto('/');
 	}
 </script>
 

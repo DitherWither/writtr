@@ -13,12 +13,12 @@
 	async function update() {
 		const fields: Post = form.getFields();
 		await setDoc(doc(firestore, 'posts', data.post_id), Object.assign({}, fields));
-		await invalidateAll()
+		await invalidateAll();
 		await goto('/');
 	}
 	async function deletePost() {
 		await deleteDoc(doc(firestore, 'posts', data.post_id));
-		await invalidateAll()
+		await invalidateAll();
 		await goto('/');
 	}
 </script>
