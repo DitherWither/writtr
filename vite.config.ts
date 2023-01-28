@@ -16,6 +16,9 @@ const config: import('vite').UserConfig = {
 				additionalData: '@use "src/variables.scss" as *;'
 			}
 		}
+	},
+	build: {
+		target: 'esnext'
 	}
 };
 

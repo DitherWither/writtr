@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { auth, firestore } from '$lib/firebase';
+	import { analytics, auth, firestore } from '$lib/firebase';
 	import { AuthErrorCodes } from 'firebase/auth';
 	import { Mail16, Key16 } from 'svelte-octicons';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, getDoc, writeBatch } from 'firebase/firestore';
 	import { redirectIfLoggedIn } from '$lib/user';
 	import { goto, invalidateAll } from '$app/navigation';
+	import { logEvent } from 'firebase/analytics';
 
 	redirectIfLoggedIn();
 
@@ -71,6 +72,9 @@
 		batch.set(usernameDoc, { uid: user.uid });
 
 		await batch.commit();
+		if (analytics) 
+			logEvent(analytics, "sign_up", {method: "email"})
+		
 		await invalidateAll();
 		await goto('/');
 	}

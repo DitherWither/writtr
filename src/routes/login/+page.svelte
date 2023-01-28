@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { redirectIfLoggedIn } from '$lib/user';
-	import { auth } from '$lib/firebase';
+	import { analytics, auth } from '$lib/firebase';
 	import { Mail16, Key16 } from 'svelte-octicons';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto, invalidateAll } from '$app/navigation';
+	import { logEvent } from 'firebase/analytics';
 
 	let userCredentials: { email: string; password: string } = {
 		email: '',
@@ -17,6 +18,7 @@
 		} catch (e) {
 			alert(e);
 		}
+		if (analytics) logEvent(analytics, 'login', { method: 'email' });
 		await invalidateAll();
 		await goto('/');
 	}

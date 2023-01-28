@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { analytics } from '$lib/firebase';
 	import type { Post } from '$lib/post';
 	import type { User } from '$lib/user';
+	import { logEvent } from 'firebase/analytics';
 	import { marked } from 'marked';
 
 	/** @type {import('./$types').PageData} */
 	export let data: { post: Post; currentUser: User | null; postAuthor: User; post_id: string };
+	if (analytics)
+		logEvent(analytics, 'select_content', { content_type: 'post', item_id: data.post_id });
 </script>
 
 <svelte:head>
