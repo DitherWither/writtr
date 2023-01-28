@@ -38,6 +38,6 @@
 	body={data.post.body}
 />
 <div class="text-center">
-	<button class="btn btn-primary" on:click={update}>Submit</button>
-	<button class="btn btn-danger" on:click={deletePost}>Delete</button>
+	<button class="btn btn-primary" on:click={update}>Save Post</button>
+	<button class="btn btn-danger" on:click={deletePost}>Delete Post</button>
 </div>
