@@ -21,10 +21,10 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'public',
 			assets: 'public',
-			fallback: "app.html",
+			fallback: 'app.html',
 			precompress: true,
 			strict: true
-		  })
+		})
 	}
 };
 

@@ -1,33 +1,56 @@
-import { auth } from '$lib/firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, firestore, getCurrentUser } from '$lib/firebase';
+import { signOut } from 'firebase/auth';
 import { goto } from '$app/navigation';
+import { getDoc, doc } from 'firebase/firestore';
 
 export class User {
-	public firstName: string | undefined;
-	public lastName: string | undefined;
-	public username: string | undefined;
+	public firstName: string;
+	public lastName: string;
+	public username: string;
 
 	constructor(obj: { firstName?: string; lastName?: string; username?: string }) {
-		this.set(obj);
+		// TS does not like the initial assignment happening outside the constructor
+		// So calling this.set() wont work
+		this.firstName = obj.firstName ?? '';
+		this.lastName = obj.lastName ?? '';
+		this.username = obj.username ?? '';
 	}
 
 	public set(obj: { firstName?: string; lastName?: string; username?: string }) {
-		this.firstName = obj.firstName;
-		this.lastName = obj.lastName;
-		this.username = obj.username;
+		this.firstName = obj.firstName ?? '';
+		this.lastName = obj.lastName ?? '';
+		this.username = obj.username ?? '';
+	}
+
+	public static async getCurrent(): Promise<User | null> {
+		const authUser = await getCurrentUser();
+
+		let currentUser: User = new User({});
+
+		if (authUser != null) {
+			const userSnap = await getDoc(doc(firestore, `users/${authUser.uid}`));
+			// if(!userSnap.exists())
+			if (userSnap.exists()) {
+				currentUser = new User(userSnap.data());
+			} else {
+				alert('User is logged in but does not exist in database. How did this happen?');
+			}
+		} else {
+			return null;
+		}
+		return currentUser;
 	}
 }
 
-export function redirectIfLoggedIn() {
-	onAuthStateChanged(auth, (user) => {
-		if (user != null) goto('/');
-	});
+// Redirects the user to / route if logged in
+export async function redirectIfLoggedIn() {
+	const user = await getCurrentUser();
+	if (user != null) goto('/');
 }
 
-export function requireLogin() {
-	onAuthStateChanged(auth, (user) => {
-		if (user == null) goto('/');
-	});
+export async function requireLogin() {
+	const user = await getCurrentUser();
+	if (user == null) goto('/');
 }
 
 export async function logOut() {

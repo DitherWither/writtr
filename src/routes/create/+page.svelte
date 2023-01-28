@@ -4,17 +4,17 @@
 	import PostForm from '$lib/PostForm.svelte';
 	import { addDoc, collection } from 'firebase/firestore';
 	import { firestore } from '$lib/firebase';
+	import { goto } from '$app/navigation';
 
 	let form: { getFields: () => Post };
 
 	requireLogin();
 
 	async function create() {
-		let fields: Post;
+		let fields: Post = form.getFields();
 		try {
-			fields = form.getFields();
 			await addDoc(collection(firestore, 'posts'), Object.assign({}, fields));
-			goto('/')
+			goto('/');
 			// console.log(fields);
 		} catch (error) {
 			alert(error);
