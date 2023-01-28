@@ -3,6 +3,7 @@
 	import { auth, firestore } from '$lib/firebase';
 	import { Timestamp, doc } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
+	import { marked } from 'marked';
 
 	export let title = '';
 	export let thumbnail_url = '';
@@ -63,11 +64,31 @@
 	bind:value={formFields.description}
 />
 
-<textarea
-	form="create-form"
-	name="body"
-	id="body"
-	class="form-control mb-3"
-	style="height: auto; min-height: 40rem"
-	bind:value={formFields.body}
-/>
+<div class="flex" />
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<textarea
+				form="create-form"
+				name="body"
+				id="body"
+				class="form-control mb-3"
+				style="height: auto; min-height: 40rem"
+				bind:value={formFields.body}
+			/>
+		</div>
+		<div class="col card">
+			<p class="card-body">
+				{@html marked(formFields.body)}
+			</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	:global(img) {
+		max-width: 100%;
+		height: auto;
+	}
+</style>
